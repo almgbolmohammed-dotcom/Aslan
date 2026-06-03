@@ -1,53 +1,45 @@
-# Workspace
+# [Project name]
 
-## Overview
+_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
 
-pnpm workspace monorepo using TypeScript. Car rental management system (نظام تأجير السيارات) — Arabic RTL app for managing car rentals in Yemen.
+## Run & Operate
+
+- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `pnpm run typecheck` — full typecheck across all packages
+- `pnpm run build` — typecheck + build all packages
+- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
+- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
+- Required env: `DATABASE_URL` — Postgres connection string
 
 ## Stack
 
-- **Monorepo tool**: pnpm workspaces
-- **Node.js version**: 24
-- **Package manager**: pnpm
-- **TypeScript version**: 5.9
-- **API framework**: Express 5
-- **Database**: PostgreSQL + Drizzle ORM
-- **Validation**: Zod, drizzle-zod
-- **API codegen**: Orval (from OpenAPI spec)
-- **Build**: esbuild (CJS bundle)
-- **Frontend**: React + Vite, Tailwind CSS, shadcn/ui, TanStack Query, wouter
+- pnpm workspaces, Node.js 24, TypeScript 5.9
+- API: Express 5
+- DB: PostgreSQL + Drizzle ORM
+- Validation: Zod (`zod/v4`), `drizzle-zod`
+- API codegen: Orval (from OpenAPI spec)
+- Build: esbuild (CJS bundle)
 
-## Artifacts
+## Where things live
 
-- **car-rental** (`/`) — Arabic RTL frontend app
-- **api-server** (`/api`) — Express REST API
-- **mockup-sandbox** (`/__mockup`) — Design prototyping sandbox
+_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
 
-## Key Commands
+## Architecture decisions
 
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
+_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
 
-## Features
+## Product
 
-### Car Rental App Features
-1. **Dashboard** — Summary stats (active rentals, available cars, income, debt) + recent activity
-2. **Cars** — Manage fleet with plate numbers, models, and rates (inside/outside Sanaa)
-3. **Rentals** — Start/manage/complete active rentals with live timer, multi-step modal
-4. **Income** — Track settled income records
-5. **Debts** — Track outstanding debts with settle action
+_Describe the high-level user-facing capabilities of this app once they exist._
 
-### Business Logic
-- New rental: pick zone (داخل/خارج صنعاء), confirm/edit daily rate, optional customer name
-- Timer tracks 24h cycles → full day billing
-- Complete rental: paid → Income table, unpaid → Debt table
-- Mid-trip rate/zone update supported
-- Settle debt: marks debt settled and creates income record
+## User preferences
 
-## Important Notes
+_Populate as you build — explicit user instructions worth remembering across sessions._
 
-- After running codegen, the `lib/api-zod/src/index.ts` must only export from `./generated/api` (not types too — causes conflicts)
-- Frontend imports types from `@workspace/api-client-react` (not from relative src paths)
-- Use `en-US` locale for number formatting (not `ar-YE` which produces Eastern Arabic numerals)
+## Gotchas
+
+_Populate as you build — sharp edges, "always run X before Y" rules._
+
+## Pointers
+
+- See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
